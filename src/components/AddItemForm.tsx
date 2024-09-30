@@ -7,8 +7,16 @@ const AddItemForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newItem = { name, type };
-    const savedItems = JSON.parse(localStorage.getItem('starWarsItems') || '[]');
-    localStorage.setItem('starWarsItems', JSON.stringify([...savedItems, newItem]));
+    const savedItems = JSON.parse(
+      localStorage.getItem(
+        newItem.type == 'vehicle' ? 'localVehicles' : 'localStarships') || '[]'
+      );
+    
+    localStorage.setItem(
+      newItem.type == 'vehicle' ? 'localVehicles' : 'localStarships' , 
+      JSON.stringify([...savedItems, newItem])
+    );
+
   };
 
   return (
