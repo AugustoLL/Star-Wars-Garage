@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Vehicle, Starship } from "../types/starWars";
+import { fetchVehicles, fetchStarships } from "../api/swapi";
 
 const HomePage: React.FC = () => {
 
@@ -11,16 +12,18 @@ const HomePage: React.FC = () => {
 
   type Spacecraft = Vehicle | Starship;
 
-  const [items, setItems] = useState<Spacecraft[]>([]);
+  const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
+  const [starships, setStarships] = useState<Spacecraft[]>([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const vehiclesResponse = await fetch('https://swapi.dev/api/vehicles/');
-        const starshipResponse = await fetch('https://swapi.dev/api/starships/');
-        const vehicles = await vehiclesResponse.json();
-        const starships = await starshipResponse.json();
-        setItems([...vehicles.results, ...starships.results]);
+        const vehiclesData = await fetchVehicles();
+        const starshipsData = await fetchStarships();
+
+        setVehicles(vehiclesData);
+        setStarships(starshipsData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,7 +39,7 @@ const HomePage: React.FC = () => {
       <h1>HomePage</h1>
       <button onClick={handleNavigation}>Add Item</button>
       <ul>
-        {items.map((item, index) => (
+        {[...vehicles, ...starships].map((item, index) => (
           <li key={index}>{item.name}</li>
         ))}
       </ul>
