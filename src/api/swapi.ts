@@ -12,8 +12,7 @@ const fetchAllItems = async <Spacecraft>(initialUrl: string): Promise<Spacecraft
 
     url = data.next;
   }
-
-  console.table(allItems);
+  
   return allItems;
 }
 

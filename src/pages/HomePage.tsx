@@ -17,18 +17,19 @@ const HomePage: React.FC = () => {
 
   const LOCAL_STORAGE_VEHICLES_KEY = 'localVehicles';
   const LOCAL_STORAGE_STARSHIPS_KEY = 'localStarships';
-  
-  const loadFromLocalStorage = (key: string): Spacecraft[] => {
-    const storedItems = localStorage.getItem(key);
-    if (key === LOCAL_STORAGE_VEHICLES_KEY) {
-      return storedItems ? JSON.parse(storedItems) as Vehicle[] : [];  
-    } else {
-      return storedItems ? JSON.parse(storedItems) as Starship[] : [];
-    }
-    
-  }
 
   useEffect(() => {
+
+    const loadFromLocalStorage = (key: string): Spacecraft[] => {
+      const storedItems = localStorage.getItem(key);
+      if (key === LOCAL_STORAGE_VEHICLES_KEY) {
+        return storedItems ? JSON.parse(storedItems) as Vehicle[] : [];  
+      } else {
+        return storedItems ? JSON.parse(storedItems) as Starship[] : [];
+      }
+      
+    }
+
     const fetchData = async () => {
       try {
         const fetchedVehicles = await fetchVehicles();
@@ -48,9 +49,11 @@ const HomePage: React.FC = () => {
       }
     }
 
+    console.table(vehicles);
+
     fetchData();
 
-  }, [loadFromLocalStorage]);
+  }, []);
 
 
   return (
