@@ -1,46 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Vehicle, Starship } from "../types/starWars";
 
 const HomePage: React.FC = () => {
-
-  interface Vehicle {
-    name: string;
-    model: string;
-    vehicle_class: string;
-    manufacturer: string;
-    length: string;
-    cost_in_credits: string;
-    crew: string;
-    passengers: string;
-    max_atmosphering_speed: string;
-    cargo_capacity: string;
-    consumables: string;
-    films: string[];
-    pilots: string[];
-    url: string;
-    created: string;
-    edited: string;
-  }
-
-  interface Starship {
-    name: string;
-    model: string;
-    starship_class: string;
-    manufacturer: string;
-    cost_in_credits: string;
-    length: string;
-    crew: string;
-    passengers: string;
-    max_atmosphering_speed: string;
-    hyperdrive_rating: string;
-    MGLT: string;
-    cargo_capacity: string;
-    consumables: string;
-    films: string[];
-    pilots: string[];
-    url: string;
-    created: string;
-    edited: string;
-  }
 
   type Item = Vehicle | Starship;
 
