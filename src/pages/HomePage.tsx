@@ -14,16 +14,35 @@ const HomePage: React.FC = () => {
 
   const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
   const [starships, setStarships] = useState<Spacecraft[]>([]);
+
+  const LOCAL_STORAGE_VEHICLES_KEY = 'localVehicles';
+  const LOCAL_STORAGE_STARSHIPS_KEY = 'localStarships';
   
+  const loadFromLocalStorage = (key: string): Spacecraft[] => {
+    const storedItems = localStorage.getItem(key);
+    if (key === LOCAL_STORAGE_VEHICLES_KEY) {
+      return storedItems ? JSON.parse(storedItems) as Vehicle[] : [];  
+    } else {
+      return storedItems ? JSON.parse(storedItems) as Starship[] : [];
+    }
+    
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const vehiclesData = await fetchVehicles();
-        const starshipsData = await fetchStarships();
+        const fetchedVehicles = await fetchVehicles();
+        const fetchedStarships = await fetchStarships();
 
-        setVehicles(vehiclesData);
-        setStarships(starshipsData);
+        const localVehicles = loadFromLocalStorage(LOCAL_STORAGE_VEHICLES_KEY);
+        const localStarships = loadFromLocalStorage(LOCAL_STORAGE_STARSHIPS_KEY);
+
+        console.log(localVehicles);
+        console.log(localStarships);
+        
+
+        setVehicles([...fetchedVehicles, ...localVehicles]);
+        setStarships([...fetchedStarships, ...localStarships]);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -31,7 +50,7 @@ const HomePage: React.FC = () => {
 
     fetchData();
 
-  }, []);
+  }, [loadFromLocalStorage]);
 
 
   return (

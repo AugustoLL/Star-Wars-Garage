@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { Spacecraft } from "../types/starWars";
 
 const AddItemForm: React.FC = () => {
   const [name, setName] = useState('');
