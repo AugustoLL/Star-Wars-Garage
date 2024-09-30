@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Vehicle, Starship } from "../types/starWars";
 
 const HomePage: React.FC = () => {
 
-  type Item = Vehicle | Starship;
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/add');
+  }
 
-  const [items, setItems] = useState<Item[]>([]);
+  type Spacecraft = Vehicle | Starship;
+
+  const [items, setItems] = useState<Spacecraft[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +33,8 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <div>HomePage</div>
+      <h1>HomePage</h1>
+      <button onClick={handleNavigation}>Add Item</button>
       <ul>
         {items.map((item, index) => (
           <li key={index}>{item.name}</li>
