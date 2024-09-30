@@ -1,5 +1,6 @@
 /*Common interface for all starwars vehicles*/
 interface Spacecraft {
+  favorite: boolean;
   name: string;
   model: string;
   manufacturer: string;

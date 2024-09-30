@@ -38,18 +38,12 @@ const HomePage: React.FC = () => {
         const localVehicles = loadFromLocalStorage(LOCAL_STORAGE_VEHICLES_KEY);
         const localStarships = loadFromLocalStorage(LOCAL_STORAGE_STARSHIPS_KEY);
 
-        console.log(localVehicles);
-        console.log(localStarships);
-        
-
         setVehicles([...fetchedVehicles, ...localVehicles]);
         setStarships([...fetchedStarships, ...localStarships]);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
-    console.table(vehicles);
 
     fetchData();
 
@@ -61,9 +55,15 @@ const HomePage: React.FC = () => {
       <h1>HomePage</h1>
       <button onClick={handleNavigation}>Add Item</button>
       <ul>
-        {[...vehicles, ...starships].map((item, index) => (
-          <li key={index}>{item.name}</li>
-        ))}
+        {
+          [...vehicles, ...starships]
+          .sort((a, b) => {
+            return new Date(b.created).getTime() - new Date(a.created).getTime();
+          })
+          .map((item, index) => (
+            <li key={index}>{item.name}</li>
+          ))
+        }
       </ul>
     </div>
   );
