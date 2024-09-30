@@ -1,50 +1,43 @@
 # React + TypeScript + Vite
+# Star Wars Garage
+# Progetto FE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduzione
 
-Currently, two official plugins are available:
+Sono un appassionato di star wars che adora i veicoli e le astronavi ideate da Lucasfilm.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Conosco le api `SWAPI` che contengono sia veicoli che astronavi ma sono fermi da episodio 7.
+Essendo un vero fan, anche delle loro ultime creazioni, mi piacerebbe inserire le astronavi e i veicoli mancanti.
 
-## Expanding the ESLint configuration
+Il millennium falcon e lo x-wing sono veramente iconiche devo per forza averle sempre in primo piano.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Obiettivo
 
-- Configure the top-level `parserOptions` property like this:
+Creare un'applicazione in Vite+React+TypeScript che gestisca una lista di veicoli e astronavi di Star Wars, includendo i mezzi preferiti e la possibilità di aggiungere nuovi elementi. I dati saranno salvati localmente utilizzando il local storage.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Funzionalità principali
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Lista unificata di astronavi e veicoli:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Visualizzare una lista che includa sia i veicoli che le astronavi di Star Wars, recuperati dalle API di SWAPI;
+- Aggiungere un filtro con chip per alternare tra veicoli e astronavi;
+- I mezzi preferiti, come il Millennium Falcon e l'X-Wing, devono sempre apparire in cima alla lista.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Pagina per aggiungere nuovi mezzi
+
+- Creare una pagina dedicata all'inserimento di nuovi veicoli o astronavi, con i dati salvati in local storage;
+- I nuovi mezzi aggiunti devono essere visibili nella lista principale insieme a quelli di SWAPI.
+
+## Risorse
+
+### Fondazionali
+
+- [React](https://react.dev/);
+- [Typescript](https://www.typescriptlang.org/);
+- [Vite](https://vitejs.dev/).
+
+### Progetto
+
+- [SWAPI](https://swapi.dev/);
+- [I veicoli di SWAPI](https://swapi.dev/documentation#vehicles);
+- [Le astronavi di SWAPI](https://swapi.dev/documentation#starships).
