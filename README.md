@@ -1,16 +1,60 @@
-# Star Wars Garage
+# Star Wars Garage 🚀
 
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](https://opensource.org/licenses/MIT)
 ![React Version](https://img.shields.io/badge/react-v18.3.1-blue?style=for-the-badge&logo=react)
 ![Vite](https://img.shields.io/badge/v5.1.5-js?style=for-the-badge&logo=vite&label=Vite&color=%23a54ffe)
 
-This is a simple React + TypeScript + Vite application to fetch vehicles from the Star Wars API.
+This is a simple React + TypeScript + Vite application to fetch vehicles from the Star Wars API and allows users to add their own spacecrafts, which are stored locally. Favorite spacecrafts, like the X-Wing and Millennium Falcon, are always shown at the top of the list.
 
 ## ❗️ Features
+
+- Fetches data from the SWAPI for Star Wars vehicles and starships.
+- Allows users to add new spacecrafts, which are saved to local storage.
+- Favorites feature: Starships like the X-Wing and Y-Wing are marked as favorites and displayed at the top of the list.
+- Filter options to view all spacecraft, only vehicles, or only starships.
+- Displays key information about each spacecraft such as model, cost, and specific details for vehicles and starships.
+
 ## 🖼️ Examples
 
 <img src="examples/example1.png" />
 <img src="examples/example2.png" />
+
+## 💿 Setup 
+
+1. Clone the repository:
+```sh
+git clone https://github.com/AugustoLL/Star-Wars-Garage.git
+cd Star-Wars-Garage
+```
+
+2. Install dependencies:
+
+```sh
+npm install
+```
+
+or
+
+```sh
+yarn install
+```
+
+3. Start the development server:
+
+```sh
+npm run dev
+```
+or
+
+```sh
+yarn dev
+```
+
+## 💡 Usage
+
+1. Add a Spacecraft: Click on the "Add Spacecraft" button to navigate to the form where you can add new vehicles or starships. All spacecrafts added by users are stored in local storage and will persist across sessions.
+2. Favorites: The X-Wing and Y-Wing are marked as favorites by default. To favorite a spacecraft, modify the FAVORITE_SPACECRAFTS constant in the code.
+3. Filter Spacecraft: Use the chips at the top of the homepage to filter between vehicles, starships, or all spacecraft.
 
 ## ⚒️ Technologies Used
 
