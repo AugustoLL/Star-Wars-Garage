@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Vehicle, Starship } from "../types/starWars";
+import "./AddSpacecraftForm.css";
 
 const AddSpacecraftForm: React.FC = () => {
 
@@ -74,6 +75,7 @@ const AddSpacecraftForm: React.FC = () => {
 
       {/* Common data for both Vehicles and Starships */}
       <input type="text" name="name" value={commonData.name} onChange={e => setCommonData({...commonData, name: e.target.value})} placeholder="Unnamed Name"/>
+      <input type="text" name="model" value={commonData.model} onChange={e => setCommonData({...commonData, model: e.target.value})} placeholder="Model"/>
 
       {/* Specific fields for Vehicles */}
       {spacecraftType === 'vehicle' && (

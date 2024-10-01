@@ -9,7 +9,7 @@ const AddSpacecraftPage = () => {
   return (
     <div>
       <h1>Add New Spacecraft</h1>
-      <button onClick={handleNavigation}>Go Home</button>
+      <button onClick={handleNavigation}>Home</button>
       <AddSpacecraftForm />
     </div>
   );

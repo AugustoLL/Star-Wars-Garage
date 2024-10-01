@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Vehicle, Starship } from "../types/starWars";
 import { fetchVehicles, fetchStarships } from "../api/swapi";
+import "./HomePage.css";
 
 const HomePage: React.FC = () => {
 
@@ -51,17 +52,21 @@ const HomePage: React.FC = () => {
 
 
   return (
-    <div>
-      <h1>HomePage</h1>
-      <button onClick={handleNavigation}>Add Item</button>
-      <ul>
+    <div className="container">
+      <h1 className="title">HomePage</h1>
+      <button className="button" onClick={handleNavigation}>Add Item</button>
+      <ul className="list-container">
         {
           [...vehicles, ...starships]
           .sort((a, b) => {
             return new Date(b.created).getTime() - new Date(a.created).getTime();
           })
           .map((item, index) => (
-            <li key={index}>{item.name}</li>
+            <div className={item.favorite ? 'list-item favorite' : 'list-item'} key={index}>
+              <div className="list-item-title"> {item.name} </div>
+              <div className="list-item-model"> {item.model} </div>
+              <div className="list-item-cost"> {item.cost_in_credits} </div>
+            </div>
           ))
         }
       </ul>
