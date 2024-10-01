@@ -3,7 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Vehicle, Starship } from "../types/starWars";
 import { fetchVehicles, fetchStarships } from "../api/swapi";
 import "./HomePage.css";
+import { LOCAL_STORAGE_STARSHIPS_KEY, LOCAL_STORAGE_VEHICLES_KEY, FAVORITE_SPACECRAFTS } from "../constants";
 
+/**
+ * HomePage component
+ * This is the main page of the application
+ * It displays a list of spacecrafts, including vehicles and starships
+ * The list is sorted by the time it was created and the items that are favorites are marked and moved to the top
+ * There is also a button to navigate to the AddSpacecraftPage to add new spacecrafts
+ * The data is fetched from the SWAPI and from the local storage
+ * If the data is not available in the local storage, it is fetched from the SWAPI
+ * If the data is not available in the SWAPI, it is not displayed
+ * The favorites are stored in the local storage
+ */
 const HomePage: React.FC = () => {
 
   /**
@@ -24,10 +36,9 @@ const HomePage: React.FC = () => {
   const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
   const [starships, setStarships] = useState<Spacecraft[]>([]);
 
-  const LOCAL_STORAGE_VEHICLES_KEY = 'localVehicles';
-  const LOCAL_STORAGE_STARSHIPS_KEY = 'localStarships';
-  const favoriteSpacecrafts = ["Millennium Falcon", "X-wing"];
-
+  /**
+   * Used to load data from local storage and merge it with the data from the SWAPI.
+   */
   useEffect(() => {
 
     /** 
@@ -77,7 +88,7 @@ const HomePage: React.FC = () => {
   const markFavorites = (items: Spacecraft[]) => {
     return items.map((item) => ({
       ...item,
-      favorite: favoriteSpacecrafts.includes(item.name),
+      favorite: FAVORITE_SPACECRAFTS.includes(item.name),
     }));
   };
 
@@ -88,8 +99,8 @@ const HomePage: React.FC = () => {
    * This function is used to show the spacecrafts in the <ul>
    * */
   const sortedSpacecrafts = markFavorites([...vehicles, ...starships]).sort((a, b) => {
-    const aIsFavorite = favoriteSpacecrafts.includes(a.name);
-    const bIsFavorite = favoriteSpacecrafts.includes(b.name);
+    const aIsFavorite = FAVORITE_SPACECRAFTS.includes(a.name);
+    const bIsFavorite = FAVORITE_SPACECRAFTS.includes(b.name);
 
     if (aIsFavorite && !bIsFavorite) return -1;
     else if (!aIsFavorite && bIsFavorite) return 1;
@@ -98,6 +109,10 @@ const HomePage: React.FC = () => {
   });
 
 
+  /**
+   * Render the <ul> with the sorted spacecrafts,
+   * and the Add Spacecraft button used to navigate to the AddSpacecraftPage.
+   */
   return (
     <div className="container">
       <h1 className="title">HomePage</h1>

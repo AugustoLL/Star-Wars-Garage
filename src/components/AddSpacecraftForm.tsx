@@ -1,12 +1,27 @@
 import React, { useState } from "react";
 import { Vehicle, Starship } from "../types/starWars";
 import "./AddSpacecraftForm.css";
+import { LOCAL_STORAGE_VEHICLES_KEY, LOCAL_STORAGE_STARSHIPS_KEY } from "../constants";
 
+/**
+ * Form to add a new spacecraft to the local storage.
+ * The form has two main parts: common data for both Vehicles and Starships and specific fields for each type of spacecraft.
+ * The user can choose the type of spacecraft to add, Vehicle or Starship, and the form will render the respective specific fields.
+ * When the user submits the form, it will create a new Vehicle or Starship object, add the created and edited timestamps and add the new spacecraft to the local storage.
+ */
 const AddSpacecraftForm: React.FC = () => {
 
+  /**
+   * The type of spacecraft to add. Either "vehicle" or "starship".
+   * This is used to determine which fields to show in the form.
+   * Initially, it is set to "vehicle".
+   */
   const [spacecraftType, setSpacecraftType] = useState('vehicle');
 
-  // Common data for both Vehicles and Starships
+  /**
+   * This is the common data for both Vehicles and Starships.
+   * It will be used to create a new Vehicle or Starship object.
+   */
   const [commonData, setCommonData] = useState({
     favorite: false,
     name: '',
@@ -24,6 +39,11 @@ const AddSpacecraftForm: React.FC = () => {
     url: '',
   });
 
+  /**
+   * Specific fields for each type of spacecraft.
+   * Vehicles needs a vehicle class
+   * Starships needs a starship class, a hyperdrive rating and a Megalights/hour
+   */
   // Specific fields for Vehicles
   const [vehicleClass, setVehicleClass] = useState('');
   // Specific fields for Starships
@@ -32,6 +52,14 @@ const AddSpacecraftForm: React.FC = () => {
   const [MGLT, setMGLT] = useState('');
 
 
+  /**
+   * Handles the form submission.
+   * First it prevents the default form submission behavior.
+   * Depending on the type of spacecraft being added, it will create a new Vehicle or Starship object
+   * by spreading the common data and adding the respective specific fields (vehicle_class, starship_class, hyperdrive_rating, MGLT)
+   * and then adding the created and edited timestamps.
+   * It will then add the new spacecraft to the local storage, either to the vehicles or starships array.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -43,10 +71,10 @@ const AddSpacecraftForm: React.FC = () => {
         edited: new Date().toISOString(),
       }
 
-      const localVehicles = JSON.parse(localStorage.getItem('localVehicles') || '[]');
+      const localVehicles = JSON.parse(localStorage.getItem(LOCAL_STORAGE_VEHICLES_KEY) || '[]');
       localVehicles.push(newVehicle);
 
-      localStorage.setItem('localVehicles', JSON.stringify(localVehicles));
+      localStorage.setItem(LOCAL_STORAGE_VEHICLES_KEY, JSON.stringify(localVehicles));
     } else if (spacecraftType === 'starship') {
       const newStarship: Starship = {
         ...commonData,
@@ -57,14 +85,19 @@ const AddSpacecraftForm: React.FC = () => {
         edited: new Date().toISOString(),
       }
 
-      const localStarships = JSON.parse(localStorage.getItem('localStarships') || '[]');
+      const localStarships = JSON.parse(localStorage.getItem(LOCAL_STORAGE_STARSHIPS_KEY) || '[]');
       localStarships.push(newStarship);
 
-      localStorage.setItem('localStarships', JSON.stringify(localStarships));
+      localStorage.setItem(LOCAL_STORAGE_STARSHIPS_KEY, JSON.stringify(localStarships));
     }
 
   };
 
+  /**
+   * Render the form.
+   * Depending on the type of spacecraft being added, it will render extra fields specific for Vehicles or Starships.
+   * It will also render the submit button.
+   */
   return (
     <form onSubmit={handleSubmit}>
       {/* Selector to choose the Type of Spacecraft: Vehicle or Starship*/}
