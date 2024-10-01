@@ -3,6 +3,12 @@ import { Vehicle, Starship } from "../types/starWars";
 import "./AddSpacecraftForm.css";
 import { LOCAL_STORAGE_VEHICLES_KEY, LOCAL_STORAGE_STARSHIPS_KEY } from "../constants";
 
+
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarIcon from '@mui/icons-material/Star';
+
 /**
  * Form to add a new spacecraft to the local storage.
  * The form has two main parts: common data for both Vehicles and Starships and specific fields for each type of spacecraft.
@@ -100,11 +106,25 @@ const AddSpacecraftForm: React.FC = () => {
    */
   return (
     <form onSubmit={handleSubmit}>
-      {/* Selector to choose the Type of Spacecraft: Vehicle or Starship*/}
-      <select value={spacecraftType} onChange={e => setSpacecraftType(e.target.value)}>
-        <option value="vehicle">Vehicle</option>
-        <option value="starship">Starship</option>
-      </select>
+      <div>
+        {/* Selector to choose the Type of Spacecraft: Vehicle or Starship*/}
+        <select value={spacecraftType} onChange={e => setSpacecraftType(e.target.value)}>
+          <option value="vehicle">Vehicle</option>
+          <option value="starship">Starship</option>
+        </select>
+        <FormControlLabel 
+          label="Favorite" 
+          control={
+            <Checkbox
+              className="favorite-checkbox"
+              icon={<StarBorderOutlinedIcon />} 
+              checkedIcon={<StarIcon />}
+              checked={commonData.favorite} 
+              onChange={e => setCommonData({...commonData, favorite: e.target.checked})}
+            />
+          } 
+        />
+      </div>
 
       {/* Common data for both Vehicles and Starships */}
       <input type="text" name="name" value={commonData.name} onChange={e => setCommonData({...commonData, name: e.target.value})} placeholder="Unnamed Name"/>

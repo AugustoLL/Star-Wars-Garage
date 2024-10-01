@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
   const markFavorites = (items: Spacecraft[]) => {
     return items.map((item) => ({
       ...item,
-      favorite: FAVORITE_SPACECRAFTS.includes(item.name),
+      favorite: item.favorite ? true : FAVORITE_SPACECRAFTS.includes(item.name),
     }));
   };
 
@@ -147,9 +147,9 @@ const HomePage: React.FC = () => {
         startIcon={<AddIcon /> }
       >Add Spacecraft</Button>
       <Stack direction="row" spacing={1}>
-        <Chip label="All" onClick={() => setFilter("all")} color={filter === "all" ? "success" : "primary"}></Chip>
-        <Chip label="Vehicles" onClick={() => setFilter("vehicles")} color={filter === "vehicles" ? "success" : "primary"}></Chip>
-        <Chip label="Starships" onClick={() => setFilter("starships")} color={filter === "starships" ? "success" : "primary"}></Chip>
+        <Chip label="All" onClick={() => setFilter("all")} color="primary" variant={filter === "all" ? "filled" : "outlined"}></Chip>
+        <Chip label="Vehicles" onClick={() => setFilter("vehicles")} color="primary" variant={filter === "vehicles" ? "filled" : "outlined"}></Chip>
+        <Chip label="Starships" onClick={() => setFilter("starships")} color="primary" variant={filter === "starships" ? "filled" : "outlined"}></Chip>
       </Stack>
       <ul className="list-container">
         {
@@ -162,7 +162,7 @@ const HomePage: React.FC = () => {
             <div className={item.favorite ? 'list-item favorite' : 'list-item'} key={index}>
               <div className="list-item-title"> {item.name} {item.favorite && <strong>(★)</strong>} </div>
               <div className="list-item-model"> {item.model} </div>
-              <div className="list-item-cost"> {item.cost_in_credits} </div>
+              <div className="list-item-cost"> ${item.cost_in_credits} credits</div>
               <div className="list-item-created"> {new Date(item.created).toLocaleDateString("en-GB")} </div>
             </div>
           ))
