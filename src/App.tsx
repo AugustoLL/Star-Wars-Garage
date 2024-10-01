@@ -3,6 +3,11 @@ import HomePage from './pages/HomePage'
 import AddSpacecraftPage from './pages/AddSpacecraftPage'
 import './App.css'
 
+/**
+ * Renders a Router and a set the Routes.
+ * The "/" URL maps to the HomePage component, and
+ * the "/add" URL maps to the AddSpacecraftPage component.
+ */
 function App() {
   return (
     <Router>
