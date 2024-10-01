@@ -1,5 +1,34 @@
-# React + TypeScript + Vite
 # Star Wars Garage
+
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](https://opensource.org/licenses/MIT)
+![React Version](https://img.shields.io/badge/react-v18.3.1-blue?style=for-the-badge&logo=react)
+![Vite](https://img.shields.io/badge/v5.1.5-js?style=for-the-badge&logo=vite&label=Vite&color=%23a54ffe)
+
+This is a simple React + TypeScript + Vite application to fetch vehicles from the Star Wars API.
+
+## ❗️ Features
+## 🖼️ Examples
+
+<img src="examples/example1.png" />
+<img src="examples/example2.png" />
+
+## ⚒️ Technologies Used
+
+- React
+- Vite
+- Typescript
+- React Router
+
+## ❕ Yet to implement
+- (IMPORTANT) Add filter to show all, only vehicles or only starships
+- Set local spacecrafts as favorite
+- Improve UI
+
+## 📑 License
+[MIT](http://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License.
+
 # Progetto FE
 
 ## Introduzione
