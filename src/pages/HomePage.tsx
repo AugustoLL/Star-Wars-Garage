@@ -5,6 +5,11 @@ import { fetchVehicles, fetchStarships } from "../api/swapi";
 import "./HomePage.css";
 import { LOCAL_STORAGE_STARSHIPS_KEY, LOCAL_STORAGE_VEHICLES_KEY, FAVORITE_SPACECRAFTS } from "../constants";
 
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+
 /**
  * HomePage component
  * This is the main page of the application
@@ -35,6 +40,14 @@ const HomePage: React.FC = () => {
    * */
   const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
   const [starships, setStarships] = useState<Spacecraft[]>([]);
+
+  /**
+   * Initialize state for filter as "all"
+   * and provide setFilter as a function to update its state.
+   * Used to filter the items shown in the homepage.
+   * Can be "all", "vehicles" or "starships".
+   */
+  const [filter, setFilter] = useState<string>("all"); 
 
   /**
    * Used to load data from local storage and merge it with the data from the SWAPI.
@@ -72,6 +85,7 @@ const HomePage: React.FC = () => {
 
         setVehicles([...fetchedVehicles, ...localVehicles]);
         setStarships([...fetchedStarships, ...localStarships]);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -80,6 +94,16 @@ const HomePage: React.FC = () => {
     fetchData();
 
   }, []);
+
+  const filterSpacecrafts = () => {
+    if (filter === "vehicles") {
+      return vehicles;
+    } else if (filter === "starships") {
+      return starships;
+    } else {
+      return [...vehicles, ...starships];
+    }
+  }
 
   /** 
    * If a spacecraft's name is in the list of favorites, 
@@ -98,7 +122,7 @@ const HomePage: React.FC = () => {
    * Then sort y the time it was created
    * This function is used to show the spacecrafts in the <ul>
    * */
-  const sortedSpacecrafts = markFavorites([...vehicles, ...starships]).sort((a, b) => {
+  const sortedSpacecrafts = markFavorites(filterSpacecrafts()).sort((a, b) => {
     const aIsFavorite = FAVORITE_SPACECRAFTS.includes(a.name);
     const bIsFavorite = FAVORITE_SPACECRAFTS.includes(b.name);
 
@@ -116,7 +140,17 @@ const HomePage: React.FC = () => {
   return (
     <div className="container">
       <h1 className="title">HomePage</h1>
-      <button className="button" onClick={handleNavigation}>Add Item</button>
+      <Button 
+        variant="contained" 
+        color="secondary" 
+        onClick={handleNavigation}
+        startIcon={<AddIcon /> }
+      >Add Spacecraft</Button>
+      <Stack direction="row" spacing={1}>
+        <Chip label="All" onClick={() => setFilter("all")} color={filter === "all" ? "success" : "primary"}></Chip>
+        <Chip label="Vehicles" onClick={() => setFilter("vehicles")} color={filter === "vehicles" ? "success" : "primary"}></Chip>
+        <Chip label="Starships" onClick={() => setFilter("starships")} color={filter === "starships" ? "success" : "primary"}></Chip>
+      </Stack>
       <ul className="list-container">
         {
           sortedSpacecrafts.map((item, index) => (
