@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Vehicle, Starship } from "../types/starWars";
 
-const AddItemForm: React.FC = () => {
+const AddSpacecraftForm: React.FC = () => {
 
   const [spacecraftType, setSpacecraftType] = useState('vehicle');
 
@@ -94,4 +94,4 @@ const AddItemForm: React.FC = () => {
   )
 };
 
-export default AddItemForm;
+export default AddSpacecraftForm;

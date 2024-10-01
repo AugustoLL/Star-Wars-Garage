@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import AddItemForm from "../components/AddItemForm";
+import AddSpacecraftForm from "../components/AddSpacecraftForm";
 
-const AddItemPage = () => {
+const AddSpacecraftPage = () => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     navigate("/");
@@ -11,9 +11,9 @@ const AddItemPage = () => {
     <div>
       <h1>Add New Spacecraft</h1>
       <button onClick={handleNavigation}>Go Home</button>
-      <AddItemForm />
+      <AddSpacecraftForm />
     </div>
   );
 };
 
-export default AddItemPage;
+export default AddSpacecraftPage;
