@@ -76,6 +76,17 @@ const AddSpacecraftForm: React.FC = () => {
       {/* Common data for both Vehicles and Starships */}
       <input type="text" name="name" value={commonData.name} onChange={e => setCommonData({...commonData, name: e.target.value})} placeholder="Unnamed Name"/>
       <input type="text" name="model" value={commonData.model} onChange={e => setCommonData({...commonData, model: e.target.value})} placeholder="Model"/>
+      <input type="text" name="manufacturer" value={commonData.manufacturer} onChange={e => setCommonData({...commonData, manufacturer: e.target.value})} placeholder="Manufacturer"/>
+      <input type="text" name="length" value={commonData.length} onChange={e => setCommonData({...commonData, length: e.target.value})} placeholder="Length"/>
+      <input type="text" name="cost_in_credits" value={commonData.cost_in_credits} onChange={e => setCommonData({...commonData, cost_in_credits: e.target.value})} placeholder="Cost in Credits"/>
+      <input type="text" name="crew" value={commonData.crew} onChange={e => setCommonData({...commonData, crew: e.target.value})} placeholder="Crew"/>
+      <input type="text" name="passengers" value={commonData.passengers} onChange={e => setCommonData({...commonData, passengers: e.target.value})} placeholder="Passengers"/>
+      <input type="text" name="max_atmosphering_speed" value={commonData.max_atmosphering_speed} onChange={e => setCommonData({...commonData, max_atmosphering_speed: e.target.value})} placeholder="Max Atmosphering Speed" />
+      <input type="text" name="cargo_capacity" value={commonData.cargo_capacity} onChange={e => setCommonData({...commonData, cargo_capacity: e.target.value})} placeholder="Cargo Capacity"/>
+      <input type="text" name="consumables" value={commonData.consumables} onChange={e => setCommonData({...commonData, consumables: e.target.value})} placeholder="Consumables"/>
+
+      {/*Multiple fields for Vehicles and Starships (FILMS and PILOTS)*/}
+
 
       {/* Specific fields for Vehicles */}
       {spacecraftType === 'vehicle' && (
@@ -91,7 +102,7 @@ const AddSpacecraftForm: React.FC = () => {
         </>
       )}
 
-      <button type="submit">Add Item</button>
+      <button type="submit" disabled={!commonData.name || !commonData.model || !commonData.manufacturer}>Add Item</button>
     </form>
   )
 };
