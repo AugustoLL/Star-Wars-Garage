@@ -141,7 +141,7 @@ const HomePage: React.FC = () => {
    */
   return (
     <div className="container">
-      <h1 className="title">HomePage</h1>
+      <h1 className="title">Star Wars Garage</h1>
       <Button 
         variant="contained" 
         color="secondary" 
