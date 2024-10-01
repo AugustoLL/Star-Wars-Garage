@@ -72,8 +72,10 @@ const HomePage: React.FC = () => {
     /** 
      * Fetch the vehicles and the starships from the SWAPI,
      * then load the data from local storage if it exists,
-     * then merge the vehicles from the api with the ones from local storage
-     * then merge the starships from the api with the ones from local storage
+     * then merge the vehicles from the api with the ones from local storage,
+     * and set the type variable to vehicles.
+     * then merge the starships from the api with the ones from local storage,
+     * and set the type variable to starships.
      * */
     const fetchData = async () => {
       try {
@@ -83,8 +85,8 @@ const HomePage: React.FC = () => {
         const localVehicles = loadFromLocalStorage(LOCAL_STORAGE_VEHICLES_KEY);
         const localStarships = loadFromLocalStorage(LOCAL_STORAGE_STARSHIPS_KEY);
 
-        setVehicles([...fetchedVehicles, ...localVehicles]);
-        setStarships([...fetchedStarships, ...localStarships]);
+        setVehicles([...fetchedVehicles, ...localVehicles].map(vehicle => ({...vehicle, type: "vehicle"})));
+        setStarships([...fetchedStarships, ...localStarships].map(starship => ({...starship, type: "starship"})));
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -164,6 +166,16 @@ const HomePage: React.FC = () => {
               <div className="list-item-model"> {item.model} </div>
               <div className="list-item-cost"> ${item.cost_in_credits} credits</div>
               <div className="list-item-created"> {new Date(item.created).toLocaleDateString("en-GB")} </div>
+              {(item.type === "vehicle") && (
+                <div className="list-item-class"> Vehicle Class: {(item as Vehicle).vehicle_class} </div>
+              )}
+              {(item.type === "starship") && (
+                <>
+                  <div className="list-item-class"> Starship Class: {(item as Starship).starship_class} </div>
+                  <div className="list-item-hyperdrive"> Hyperdrive Rating: {(item as Starship).hyperdrive_rating} </div>
+                  <div className="list-item-MGLT"> MGLT: {(item as Starship).MGLT} </div>
+                </>
+              )}
             </div>
           ))
         }

@@ -20,8 +20,11 @@ This is a simple React + TypeScript + Vite application to fetch vehicles from th
 - React Router
 
 ## ❕ Yet to implement
-- (IMPORTANT) Add filter to show all, only vehicles or only starships
-- Set local spacecrafts as favorite
+- ~~(IMPORTANT) Add filter to show all, only vehicles or only starships~~
+- ~~Set local spacecrafts as favorite~~
+- Currently the Homepage only shows the name of the spacecraft, the model, the cost in credits, the date created, and
+if the spacecraft is marked as favorite. While all the other data is retrieved from the API, it's not currently shown.
+Design a Card component to show all the data.
 - Improve UI
 
 ## 📑 License

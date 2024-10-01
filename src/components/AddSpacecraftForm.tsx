@@ -18,17 +18,11 @@ import StarIcon from '@mui/icons-material/Star';
 const AddSpacecraftForm: React.FC = () => {
 
   /**
-   * The type of spacecraft to add. Either "vehicle" or "starship".
-   * This is used to determine which fields to show in the form.
-   * Initially, it is set to "vehicle".
-   */
-  const [spacecraftType, setSpacecraftType] = useState('vehicle');
-
-  /**
    * This is the common data for both Vehicles and Starships.
    * It will be used to create a new Vehicle or Starship object.
    */
   const [commonData, setCommonData] = useState({
+    type: 'vehicle',
     favorite: false,
     name: '',
     model: '',
@@ -69,7 +63,7 @@ const AddSpacecraftForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (spacecraftType === 'vehicle') {
+    if (commonData.type === 'vehicle') {
       const newVehicle: Vehicle = {
         ...commonData,
         vehicle_class: vehicleClass,
@@ -81,7 +75,7 @@ const AddSpacecraftForm: React.FC = () => {
       localVehicles.push(newVehicle);
 
       localStorage.setItem(LOCAL_STORAGE_VEHICLES_KEY, JSON.stringify(localVehicles));
-    } else if (spacecraftType === 'starship') {
+    } else if (commonData.type === 'starship') {
       const newStarship: Starship = {
         ...commonData,
         starship_class: starshipClass,
@@ -108,7 +102,7 @@ const AddSpacecraftForm: React.FC = () => {
     <form onSubmit={handleSubmit}>
       <div>
         {/* Selector to choose the Type of Spacecraft: Vehicle or Starship*/}
-        <select value={spacecraftType} onChange={e => setSpacecraftType(e.target.value)}>
+        <select value={commonData.type} onChange={e => setCommonData({...commonData, type: e.target.value})}>
           <option value="vehicle">Vehicle</option>
           <option value="starship">Starship</option>
         </select>
@@ -142,12 +136,12 @@ const AddSpacecraftForm: React.FC = () => {
 
 
       {/* Specific fields for Vehicles */}
-      {spacecraftType === 'vehicle' && (
+      {commonData.type === 'vehicle' && (
         <input type="text" value={vehicleClass} onChange={e => setVehicleClass(e.target.value)} placeholder="Vehicle Class" />
       )}
 
       {/* Specific fields for Starships */}
-      {spacecraftType === 'starship' && (
+      {commonData.type === 'starship' && (
         <>
           <input type="text" value={starshipClass} onChange={e => setStarshipClass(e.target.value)} placeholder="Starship Class" />
           <input type="text" value={hyperdriveRating} onChange={e => setHyperdriveRating(e.target.value)} placeholder="Hyperdrive Rating" />
