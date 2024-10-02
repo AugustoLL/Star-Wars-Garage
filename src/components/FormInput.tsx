@@ -1,15 +1,20 @@
 import TextField from '@mui/material/TextField';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarIcon from '@mui/icons-material/Star';
 
 interface InputProps {
   label: string,
   name: string,
-  value: string,
+  value?: string,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   required?: boolean,
   type?: string,
   options?: {value: string, label: string}[],
+  isChecked?: boolean
 }
 
 const defaultOptions = [
@@ -49,7 +54,7 @@ const sx = {
   },
 }
 
-const Input: React.FC<InputProps> = ({ label, name, value, onChange, type = "text", required = false, options = defaultOptions}) => {
+const Input: React.FC<InputProps> = ({ label, name, value, onChange, type = "text", required = false, options = defaultOptions, isChecked = false}) => {
   if (type === "text") {
     return (
       <div className='input-container'>
@@ -94,6 +99,20 @@ const Input: React.FC<InputProps> = ({ label, name, value, onChange, type = "tex
         </Select>
       </div>
     )
+  }
+  else if (type === "checkbox") {
+    <FormControlLabel 
+      label={label} 
+      control={
+        <Checkbox
+          className="favorite-checkbox"
+          icon={<StarBorderOutlinedIcon />} 
+          checkedIcon={<StarIcon />}
+          checked={isChecked} 
+          onChange={onChange}
+        />
+      } 
+    />
   }
   
 }
