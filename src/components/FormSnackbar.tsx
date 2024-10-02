@@ -16,7 +16,7 @@ const FormSnackbar: React.FC<FormSnackbarProps> = ({
   message, 
   isError = false, 
   anchorOrigin = { vertical: 'top', horizontal: 'center'},
-  autoHideDuration = 6000
+  autoHideDuration = 3000
   }) => {
     return (
       <Snackbar

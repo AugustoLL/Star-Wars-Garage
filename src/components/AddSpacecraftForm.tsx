@@ -5,6 +5,7 @@ import { LOCAL_STORAGE_VEHICLES_KEY, LOCAL_STORAGE_STARSHIPS_KEY } from "../cons
 import FormInput from "./FormInput";
 import FormSnackbar from "./FormSnackbar";
 import Grid from '@mui/material/Grid2';
+import Button from '@mui/material/Button';
 
 
 import Checkbox from '@mui/material/Checkbox';
@@ -129,7 +130,6 @@ const AddSpacecraftForm: React.FC = () => {
     }
 
     setOpenSnackbar(true);
-    resetFields();
   };
 
   /**
@@ -228,15 +228,22 @@ const AddSpacecraftForm: React.FC = () => {
         )}
         {/* Submit button */}
         <Grid size={{ xs: 4, sm: 8, md: 12 }}>
-          <button type="submit" disabled={!commonData.name || !commonData.model || !commonData.manufacturer}>
+          <Button 
+            onClick={handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
             Add {commonData.type}
-          </button>
+          </Button>
         </Grid>
       </Grid>
       {/* Snackbar */}
       <FormSnackbar 
         isOpen={openSnackbar}
-        onClose={() => setOpenSnackbar(false)}
+        onClose={() => {
+          setOpenSnackbar(false)
+          resetFields();
+        }}
         message={`Succesfully added "${commonData.name}" as a new ${commonData.type}`}
       />
     </form>
