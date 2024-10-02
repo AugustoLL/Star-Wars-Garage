@@ -37,7 +37,6 @@ const chipCSS = {
  * The chips will have a yellow background color when selected (i.e. when the current value matches the label of the chip)
  */
 const FilterChips: React.FC<FilterChipsProps> = ({ chips, currentValue, direction = 'row', spacing = 2 }) => {
-  chips.forEach(chip => console.log(chip.label));
   return (
     <Stack direction={direction} spacing={spacing} className="chip-container">
       {chips.map(chip => (
