@@ -4,11 +4,13 @@ import { Vehicle, Starship } from "../types/starWars";
 import { fetchVehicles, fetchStarships } from "../api/swapi";
 import "./HomePage.css";
 import { LOCAL_STORAGE_STARSHIPS_KEY, LOCAL_STORAGE_VEHICLES_KEY, FAVORITE_SPACECRAFTS } from "../constants";
+import SpacecraftCard from "../components/SpacecraftCard";
+import FilterChips from "../components/FilterChips";
 
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 
 /**
  * HomePage component
@@ -140,47 +142,45 @@ const HomePage: React.FC = () => {
    * and the Add Spacecraft button used to navigate to the AddSpacecraftPage.
    */
   return (
-    <div className="container">
-      <h1 className="title">Star Wars Garage</h1>
-      <Button 
-        variant="contained" 
-        color="secondary" 
-        onClick={handleNavigation}
-        startIcon={<AddIcon /> }
-      >Add Spacecraft</Button>
-      <Stack direction="row" spacing={1}>
-        <Chip label="All" onClick={() => setFilter("all")} color="primary" variant={filter === "all" ? "filled" : "outlined"}></Chip>
-        <Chip label="Vehicles" onClick={() => setFilter("vehicles")} color="primary" variant={filter === "vehicles" ? "filled" : "outlined"}></Chip>
-        <Chip label="Starships" onClick={() => setFilter("starships")} color="primary" variant={filter === "starships" ? "filled" : "outlined"}></Chip>
-      </Stack>
-      <ul className="list-container">
-        {
-          sortedSpacecrafts.map((item, index) => (
-            /** 
-             * if an item is favorite, add the class "favorite" to it and a little star next to the name 
-             * else only add the class "list-item"
-             * also formats the timestamp to be in the format "dd/mm/yyyy"
-             * */
-            <div className={item.favorite ? 'list-item favorite' : 'list-item'} key={index}>
-              <div className="list-item-title"> {item.name} {item.favorite && <strong>(★)</strong>} </div>
-              <div className="list-item-model"> {item.model} </div>
-              <div className="list-item-cost"> ${item.cost_in_credits} credits</div>
-              <div className="list-item-created"> {new Date(item.created).toLocaleDateString("en-GB")} </div>
-              {(item.type === "vehicle") && (
-                <div className="list-item-class"> Vehicle Class: {(item as Vehicle).vehicle_class} </div>
-              )}
-              {(item.type === "starship") && (
-                <>
-                  <div className="list-item-class"> Starship Class: {(item as Starship).starship_class} </div>
-                  <div className="list-item-hyperdrive"> Hyperdrive Rating: {(item as Starship).hyperdrive_rating} </div>
-                  <div className="list-item-MGLT"> MGLT: {(item as Starship).MGLT} </div>
-                </>
-              )}
-            </div>
-          ))
-        }
-      </ul>
-    </div>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <h1 className="title">Star Wars Garage</h1>
+      </Grid>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={handleNavigation}
+          startIcon={<AddIcon /> }
+        >
+          Add Spacecraft
+        </Button>
+      </Grid>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Container fixed>
+          <FilterChips
+            currentValue = { filter }
+            chips={[
+              { label: "All", onClick: () => setFilter("all"), },
+              { label: "Vehicles", onClick: () => setFilter("vehicles") },
+              { label: "Starships", onClick: () => setFilter("starships") },
+            ]}
+          />
+        </Container>
+      </Grid>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Container fixed>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {sortedSpacecrafts.map((item, index) => (
+              <Grid size={{ xs: 4, sm: 4, md: 4 }} key={index}>
+                <SpacecraftCard spacecraft={item} />
+              </Grid>
+            ))}
+            <Grid size={{ xs: 4, sm: 4, md: 4 }}></Grid>
+          </Grid>
+        </Container>
+      </Grid>
+    </Grid>
   );
 };
 

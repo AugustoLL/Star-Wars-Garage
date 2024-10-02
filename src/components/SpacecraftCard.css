@@ -1,0 +1,25 @@
+.spacecraft-card {
+  border-radius: 10px !important;
+  border: 1px solid #d7935e;
+  background-color: #121212 !important;
+  color: #f4e8ce !important;
+  padding: 0 20px 10px;
+}
+.card-text {
+  margin-top: 10px;
+}
+.card-text > .important {
+  color: #d7935e;
+}
+.spacecraft-card.favorite {
+  border: 2px solid #fee818;
+}
+.spacecraft-card.favorite > div > .card-title {
+  color: #fee818;
+}
+.spacecraft-card.favorite > div > .card-button {
+  color: #5b54a0;
+}
+.spacecraft-card > div > .card-button {
+  color: #ce102c;
+}
