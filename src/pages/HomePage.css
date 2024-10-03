@@ -1,10 +1,5 @@
-form {
-  /*! flex: fit-content; */
-  display: grid;
-}
-form > * {
-  margin-top: 10px;
-  padding: 10px;
+.home-page-title {
+  color: gold;
 }
 .add-button {
   background-color: gold !important;

@@ -36,7 +36,7 @@ const SpacecraftCard: React.FC<SpacecraftCardProps> = ({ spacecraft, onButtonCli
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" className="card-button" onClick={ onButtonClick }>Learn More</Button>
+        <Button size="small" className="card-button" variant="outlined" onClick={ onButtonClick }>Learn More</Button>
       </CardActions>
     </Card>
   )

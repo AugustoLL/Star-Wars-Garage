@@ -11,6 +11,9 @@
 .card-text > .important {
   color: #d7935e;
 }
+.spacecraft-card.favorite > div > .card-text > .important {
+  color: #fee818;
+}
 .spacecraft-card.favorite {
   border: 2px solid #fee818;
 }
@@ -18,8 +21,10 @@
   color: #fee818;
 }
 .spacecraft-card.favorite > div > .card-button {
-  color: #5b54a0;
+  color: #fee818;
+  border-color: #fee818;
 }
 .spacecraft-card > div > .card-button {
-  color: #ce102c;
+  color: #d7935e;
+  border-color: #d7935e;
 }

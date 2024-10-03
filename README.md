@@ -11,11 +11,19 @@ This is a simple React + TypeScript + Vite application to fetch vehicles from th
 - Fetches data from the SWAPI for Star Wars vehicles and starships.
 - Allows users to add new spacecrafts, which are saved to local storage.
 - Favorites feature: Starships like the X-Wing and Y-Wing are marked as favorites and displayed at the top of the list.
+- Spacecrafts created can be added to favorites.
 - Filter options to view all spacecraft, only vehicles, or only starships.
 - Displays key information about each spacecraft such as model, cost, and specific details for vehicles and starships.
 
 ## 🖼️ Examples
 
+### New UI
+<img src="examples/newExampleHome.png" />
+<img src="examples/newExampleHomeCardOpen.png" />
+<img src="examples/newExampleHomeCardOpen2.png" />
+<img src="examples/newExampleAddSpacecraft.png" />
+
+### Old UI
 <img src="examples/example1.png" />
 <img src="examples/example2.png" />
 
@@ -53,7 +61,7 @@ yarn dev
 ## 💡 Usage
 
 1. Add a Spacecraft: Click on the "Add Spacecraft" button to navigate to the form where you can add new vehicles or starships. All spacecrafts added by users are stored in local storage and will persist across sessions.
-2. Favorites: The X-Wing and Y-Wing are marked as favorites by default. To favorite a spacecraft, modify the FAVORITE_SPACECRAFTS constant in the code.
+2. Favorites: The X-Wing and Y-Wing are marked as favorites by default. To favorite a spacecraft, modify the FAVORITE_SPACECRAFTS constant in the code or create a new spacecraft and mark it as favorite.
 3. Filter Spacecraft: Use the chips at the top of the homepage to filter between vehicles, starships, or all spacecraft.
 
 ## ⚒️ Technologies Used
@@ -62,13 +70,14 @@ yarn dev
 - Vite
 - Typescript
 - React Router
+- Material UI
 
 ## ❕ Yet to implement
 - ~~(IMPORTANT) Add filter to show all, only vehicles or only starships~~
 - ~~Set local spacecrafts as favorite~~
 - ~~Currently the Homepage only shows the name of the spacecraft, the model, the cost in credits, the date created, and if the spacecraft is marked as favorite. While all the other data is retrieved from the API, it's not currently shown.~~ 
-- Currently the Homepage shows name of spacecraft, model, cost in credits, date created, is favorite and the specific fields for each type of Spacecraft. Design a better Card component to show all the data.
-- Add loading, to show the user the data is being retrieved.
+- ~~Currently the Homepage shows name of spacecraft, model, cost in credits, date created, is favorite and the specific fields for each type of Spacecraft. Design a better Card component to show all the data.~~
+- ~~Add loading, to show the user the data is being retrieved.~~
 - Improve UI
 
 ## 📑 License

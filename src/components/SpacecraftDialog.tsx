@@ -79,8 +79,15 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
   }, [open, spacecraft]);
 
   return (
-    <Dialog open={open} onClose={onClose} className='spacecraft-dialog' sx={{ '& .MuiDialog-paper': { backgroundColor: 'transparent' } }}>
-      <Card className='spacecraft-card'>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      className='spacecraft-dialog' 
+      sx={{ '& .MuiDialog-paper': { backgroundColor: 'transparent' } }}
+      fullWidth
+      maxWidth='md'
+    >
+      <Card className={spacecraft.favorite ? "spacecraft-card favorite" : "spacecraft-card"}>
         <CardContent className="card-content">
           {/* Common spacecraft data */}
           {/* If the spacecraft is marked as favorite, it will display a star icon after the name */}

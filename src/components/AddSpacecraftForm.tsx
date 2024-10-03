@@ -231,7 +231,7 @@ const AddSpacecraftForm: React.FC = () => {
           <Button 
             onClick={handleSubmit}
             variant="contained"
-            color="secondary"
+            className="submit-button"
           >
             Add {commonData.type}
           </Button>

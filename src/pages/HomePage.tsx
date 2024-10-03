@@ -202,8 +202,8 @@ const HomePage: React.FC = () => {
    */
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Grid size={{ xs: 4, sm: 8, md: 12 }} maxHeight={{ xs: "10vh", sm: "20vh", md: "30vh" }}>
-        <Typography variant="h1" component="h1" className="title">
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Typography variant="h1" component="h1" className="home-page-title">
           Star Wars Garage
         </Typography>
       </Grid>

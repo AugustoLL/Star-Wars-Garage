@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import AddSpacecraftForm from "../components/AddSpacecraftForm";
+import "./AddSpacecraftPage.css";
+
+import Grid from '@mui/material/Grid2';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import HomeIcon from '@mui/icons-material/Home';
 
 /**
  * Page to add a new spacecraft.
@@ -15,11 +21,26 @@ const AddSpacecraftPage = () => {
     navigate("/");
   }
   return (
-    <div>
-      <h1>Add New Spacecraft</h1>
-      <button onClick={handleNavigation}>Home</button>
-      <AddSpacecraftForm />
-    </div>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Typography variant="h1" component="h1" className="add-spacecraft-title">
+          Add New Spacecraft
+        </Typography>
+      </Grid>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <Button 
+          variant="contained"
+          className="home-button"
+          onClick={handleNavigation}
+          startIcon={<HomeIcon/>}
+        >
+          Home
+        </Button>
+      </Grid>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
+        <AddSpacecraftForm />
+      </Grid>
+    </Grid>
   );
 };
 
