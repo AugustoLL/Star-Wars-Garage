@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { CircularProgress } from "@mui/material";
+import Typography from '@mui/material/Typography';
 
 /**
  * HomePage component
@@ -195,18 +196,21 @@ const HomePage: React.FC = () => {
 
 
   /**
-   * Render the <ul> with the sorted spacecrafts,
-   * and the Add Spacecraft button used to navigate to the AddSpacecraftPage.
+   * Render the title of the page, a button to navigate to the AddSpacecraftPage,
+   * a Stack of chips to filter the spacecrafts, and a list of spacecrafts.
+   * It also renders a loading indicator while the data is being fetched.
    */
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Grid size={{ xs: 4, sm: 8, md: 12 }}>
-        <h1 className="title">Star Wars Garage</h1>
+      <Grid size={{ xs: 4, sm: 8, md: 12 }} maxHeight={{ xs: "10vh", sm: "20vh", md: "30vh" }}>
+        <Typography variant="h1" component="h1" className="title">
+          Star Wars Garage
+        </Typography>
       </Grid>
       <Grid size={{ xs: 4, sm: 8, md: 12 }}>
         <Button 
           variant="contained" 
-          color="secondary" 
+          className="add-button"
           onClick={handleNavigation}
           startIcon={<AddIcon /> }
         >
