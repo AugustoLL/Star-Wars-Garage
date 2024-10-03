@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { CircularProgress } from "@mui/material";
 
 /**
  * HomePage component
@@ -37,6 +38,8 @@ const HomePage: React.FC = () => {
 
   type Spacecraft = Vehicle | Starship;
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   /** 
    * Initialize state for vehicles and starships as empty arrays of Spacecraft objects
    * and provide setVehicles and setStarships as functions to update their state
@@ -44,7 +47,31 @@ const HomePage: React.FC = () => {
   const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
   const [starships, setStarships] = useState<Spacecraft[]>([]);
 
-  const [selectedSpacecraft, setSelectedSpacecraft] = useState<Spacecraft>({} as Spacecraft);
+  const emptySpacecraft: Spacecraft = {
+    type: '',
+    favorite: false,
+    name: '',
+    model: '',
+    manufacturer: '',
+    cost_in_credits: '',
+    length: '',
+    crew: '',
+    passengers: '',
+    max_atmosphering_speed: '',
+    cargo_capacity: '',
+    consumables: '',
+    films: [],
+    pilots: [],
+    url: '',
+    created: '',
+    edited: '',
+    vehicle_class: '',
+    starship_class: '',
+    hyperdrive_rating: '',
+    MGLT: '',
+  }
+
+  const [selectedSpacecraft, setSelectedSpacecraft] = useState<Spacecraft>(emptySpacecraft as Spacecraft);
   const [openDialog, setOpenDialog] = useState(false);
 
   /**
@@ -85,6 +112,7 @@ const HomePage: React.FC = () => {
      * */
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const fetchedVehicles = await fetchVehicles();
         const fetchedStarships = await fetchStarships();
 
@@ -96,6 +124,8 @@ const HomePage: React.FC = () => {
 
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -196,16 +226,25 @@ const HomePage: React.FC = () => {
         </Container>
       </Grid>
       <Grid size={{ xs: 4, sm: 8, md: 12 }}>
-        <Container fixed>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {sortedSpacecrafts.map((item, index) => (
-              <Grid size={{ xs: 4, sm: 4, md: 4 }} key={index}>
-                <SpacecraftCard spacecraft={item} onButtonClick={() => { setSelectedSpacecraft(item); setOpenDialog(true) } } />
+        {isLoading ? 
+          (
+            <Container fixed>
+              <CircularProgress />
+            </Container>
+          ) : 
+          (
+            <Container fixed>
+              <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                {sortedSpacecrafts.map((item, index) => (
+                  <Grid size={{ xs: 4, sm: 4, md: 4 }} key={index}>
+                    <SpacecraftCard spacecraft={item} onButtonClick={() => { setSelectedSpacecraft(item); setOpenDialog(true) } } />
+                  </Grid>
+                ))}
+                <Grid size={{ xs: 4, sm: 4, md: 4 }}></Grid>
               </Grid>
-            ))}
-            <Grid size={{ xs: 4, sm: 4, md: 4 }}></Grid>
-          </Grid>
-        </Container>
+            </Container>
+          )
+        }
       </Grid>
 
       <SpacecraftDialog open={openDialog} spacecraft={selectedSpacecraft} onClose={() => setOpenDialog(false)}/>

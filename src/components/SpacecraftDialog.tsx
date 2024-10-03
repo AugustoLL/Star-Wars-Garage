@@ -50,7 +50,7 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
    * If the Dialog is not open or the spacecraft has no films, it will set the films state to an empty array.
    */
   useEffect(() => {
-    if (open && spacecraft.films.length > 0) {
+    if (open && spacecraft?.films && spacecraft.films.length > 0) {
       setLoading(true);
       /**
        * Fetches a film from the SWAPI by url and updates the state with the title of the film.
@@ -161,7 +161,7 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
               <b className="important">Films: </b>
               { loading ? 
                 (<CircularProgress size={24}/>) : 
-                (films.map((film, index) => <>{film}{index === films.length - 1 ? "." : ", "}</>))
+                (films.map((film, index) => <span key={index}>{film}{index === films.length - 1 ? "." : ", "}</span>))
               }
             </Typography>
           }
