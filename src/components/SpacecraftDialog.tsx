@@ -15,14 +15,50 @@ interface SpacecraftDialogProps {
 }
 
 
+/**
+ * A Dialog component that displays information about a spacecraft.
+ * It takes as input whether the Dialog should be open or not, the spacecraft to display, and a function to call when the Dialog is closed.
+ * The component fetches the films in which the spacecraft appears and displays them in the Dialog
+ * (Only if the Dialog is open and the spacecraft has at least one film.).
+ * The component also displays the following information of the spacecraft:
+ *   - name
+ *   - type
+ *   - model
+ *   - manufacturer
+ *   - cost
+ *   - length
+ *   - crew
+ *   - passengers
+ *   - max atmosphering speed
+ *   - cargo capacity
+ *   - consumables
+ *   - vehicle class (if the spacecraft is a vehicle)
+ *   - starship class (if the spacecraft is a starship)
+ *   - hyperdrive rating (if the spacecraft is a starship)
+ *   - megalights per hour (if the spacecraft is a starship)
+ *   - the films in which the spacecraft appears
+ */
 const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, onClose }) => {
 
   const [films, setFilms] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  /**
+   * If the Dialog is open and the spacecraft has at least one film,
+   * it wil try to fetch the film and set a loading state to true,
+   * which is used by the CircularProgress component to show that the data is being fetched.
+   * If the Dialog is not open or the spacecraft has no films, it will set the films state to an empty array.
+   */
   useEffect(() => {
     if (open && spacecraft.films.length > 0) {
       setLoading(true);
+      /**
+       * Fetches a film from the SWAPI by url and updates the state with the title of the film.
+       * If the film url is not empty, it will fetch the film, otherwise it will do nothing.
+       * If the fetching is successful, it will update the state by adding the title of the film.
+       * If there is an error while fetching the film, it will log an error message.
+       * Finally, it will set the loading state to false.
+       */
       const fetchData = async (filmUrl: string) => {
         if (filmUrl != "") {
           try {
@@ -46,6 +82,8 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
     <Dialog open={open} onClose={onClose} className='spacecraft-dialog' sx={{ '& .MuiDialog-paper': { backgroundColor: 'transparent' } }}>
       <Card className='spacecraft-card'>
         <CardContent className="card-content">
+          {/* Common spacecraft data */}
+          {/* If the spacecraft is marked as favorite, it will display a star icon after the name */}
           <Typography variant="h6" component="div" className="card-title">
             {spacecraft.name} {spacecraft.favorite && <strong>(★)</strong>}
           </Typography>
@@ -91,11 +129,13 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
               <b className="important">Consumables: </b>{spacecraft.consumables}
             </Typography>
           }
+          {/* Vehicle specific data */}
           {spacecraft.type === 'vehicle' && (spacecraft as Vehicle).vehicle_class &&
             <Typography variant="subtitle1" className="card-text" align="left">
               <b className="important">Vehicle Class: </b>{(spacecraft as Vehicle).vehicle_class}
             </Typography>
           }
+          {/* Starship specific data */}
           {spacecraft.type === 'starship' && 
             <>
               {(spacecraft as Starship).starship_class &&
@@ -115,6 +155,7 @@ const SpacecraftDialog: React.FC<SpacecraftDialogProps> = ({ open, spacecraft, o
               }
             </>
           }
+          {/* Films */}
           {spacecraft.films.length > 0 &&
             <Typography variant="subtitle1" className="card-text" align="left">
               <b className="important">Films: </b>
