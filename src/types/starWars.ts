@@ -29,4 +29,8 @@ interface Starship extends Spacecraft {
   MGLT: string;
 }
 
-export type { Spacecraft, Vehicle, Starship }
+interface Film {
+  title: string;
+}
+
+export type { Spacecraft, Vehicle, Starship, Film };
