@@ -89,10 +89,11 @@ const Input: React.FC<InputProps> = ({ label, name, value, onChange, type = "tex
           displayEmpty
           required={required}
           variant='filled'
+          className='input-select'
           sx={sx}
         >
           {options.map((option: {value: string, label: string}) => (
-            <MenuItem key={option.value} value={option.value}>
+            <MenuItem key={option.value} value={option.value} className='input-select-option'>
               {option.label}
             </MenuItem>
           ))}

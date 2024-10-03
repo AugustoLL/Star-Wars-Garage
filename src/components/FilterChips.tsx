@@ -1,5 +1,8 @@
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { SvgIconStarship , SvgIconVehicle, SvgIconMillenniumFalcon} from '../assets/icons/SvgIcons';
+// import SvgIconVehicle from '../assets/icons/SvgIconVehicle';
+// import SvgIconMillenniumFalcon from '../assets/icons/SvgIconMillenniumFalcon';
 
 /**
  * Props for the FilterChips component
@@ -21,6 +24,7 @@ interface FilterChipsProps {
  * If it is selected the color of the text and border will be darker and the color of the background will be yellow.
  */
 const chipCSS = {
+  padding: "0 10px",
   "&.MuiChip-outlined": { color: "white", borderColor: "white" },
   "&.MuiChip-outlined:hover": { backgroundColor: "gold", borderColor: "gold", color: "black" },
   "&:active": { backgroundColor: "gold", color: "black" },
@@ -43,6 +47,11 @@ const FilterChips: React.FC<FilterChipsProps> = ({ chips, currentValue, directio
         <Chip 
           key={chip.label}
           label={chip.label} 
+          icon={
+            chip.label.toLowerCase() === "vehicles" ? <SvgIconVehicle color={currentValue === chip.label.toLowerCase() ? 'black' : 'white'}  /> : 
+            chip.label.toLowerCase() === "starships" ? <SvgIconStarship color={currentValue === chip.label.toLowerCase() ? 'black' : 'white'} /> : 
+            <SvgIconMillenniumFalcon color={currentValue === chip.label.toLowerCase() ? 'black' : 'white'} />
+          }
           onClick={chip.onClick}
           variant={ currentValue === chip.label.toLowerCase() ? 'filled' : 'outlined' }
           className="chip-element"
