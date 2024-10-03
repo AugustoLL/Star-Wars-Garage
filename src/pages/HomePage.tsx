@@ -6,6 +6,7 @@ import "./HomePage.css";
 import { LOCAL_STORAGE_STARSHIPS_KEY, LOCAL_STORAGE_VEHICLES_KEY, FAVORITE_SPACECRAFTS } from "../constants";
 import SpacecraftCard from "../components/SpacecraftCard";
 import FilterChips from "../components/FilterChips";
+import SpacecraftDialog from "../components/SpacecraftDialog";
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
@@ -42,6 +43,9 @@ const HomePage: React.FC = () => {
    * */
   const [vehicles, setVehicles] = useState<Spacecraft[]>([]);
   const [starships, setStarships] = useState<Spacecraft[]>([]);
+
+  const [selectedSpacecraft, setSelectedSpacecraft] = useState<Spacecraft>({} as Spacecraft);
+  const [openDialog, setOpenDialog] = useState(false);
 
   /**
    * Initialize state for filter as "all"
@@ -99,6 +103,10 @@ const HomePage: React.FC = () => {
 
   }, []);
 
+  /**
+   * @returns an array of vehicles or starships or both,
+   * depending on the value of the filter state
+   */
   const filterSpacecrafts = () => {
     if (filter === "vehicles") {
       return vehicles;
@@ -116,7 +124,7 @@ const HomePage: React.FC = () => {
   const markFavorites = (items: Spacecraft[]) => {
     return items.map((item) => ({
       ...item,
-      favorite: item.favorite ? true : FAVORITE_SPACECRAFTS.includes(item.name),
+      favorite: item.favorite ? true : FAVORITE_SPACECRAFTS.includes(item.name)
     }));
   };
 
@@ -126,15 +134,34 @@ const HomePage: React.FC = () => {
    * Then sort y the time it was created
    * This function is used to show the spacecrafts in the <ul>
    * */
-  const sortedSpacecrafts = markFavorites(filterSpacecrafts()).sort((a, b) => {
-    const aIsFavorite = FAVORITE_SPACECRAFTS.includes(a.name);
-    const bIsFavorite = FAVORITE_SPACECRAFTS.includes(b.name);
+  // const sortedSpacecrafts = markFavorites(filterSpacecrafts()).sort((a, b) => {
+  //   const aIsFavorite = FAVORITE_SPACECRAFTS.includes(a.name);
+  //   const bIsFavorite = FAVORITE_SPACECRAFTS.includes(b.name);
 
-    if (aIsFavorite && !bIsFavorite) return -1;
-    else if (!aIsFavorite && bIsFavorite) return 1;
+  //   if (aIsFavorite && !bIsFavorite) return -1;
+  //   else if (!aIsFavorite && bIsFavorite) return 1;
 
-    return new Date(b.created).getTime() - new Date(a.created).getTime();
-  });
+  //   return new Date(b.created).getTime() - new Date(a.created).getTime();
+  // });
+
+  const sortByCreated = (spacecrafts: Spacecraft[]): Spacecraft[] => {
+    return spacecrafts.sort((a, b) => {
+      return new Date(b.created).getTime() - new Date(a.created).getTime();
+    });
+  }
+
+  const moveFavoritesToTop = (spacecrafts: Spacecraft[]): Spacecraft[] => {
+    return spacecrafts.sort((a, b) => {
+      const aIsFavorite = a.favorite == true;
+      const bIsFavorite = b.favorite == true;
+  
+      if (aIsFavorite && !bIsFavorite) return -1;
+      else if (!aIsFavorite && bIsFavorite) return 1;
+      else return 0;
+    });
+  }
+
+  const sortedSpacecrafts = moveFavoritesToTop(sortByCreated(markFavorites(filterSpacecrafts())));
 
 
   /**
@@ -173,13 +200,16 @@ const HomePage: React.FC = () => {
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {sortedSpacecrafts.map((item, index) => (
               <Grid size={{ xs: 4, sm: 4, md: 4 }} key={index}>
-                <SpacecraftCard spacecraft={item} />
+                <SpacecraftCard spacecraft={item} onButtonClick={() => { setSelectedSpacecraft(item); setOpenDialog(true) } } />
               </Grid>
             ))}
             <Grid size={{ xs: 4, sm: 4, md: 4 }}></Grid>
           </Grid>
         </Container>
       </Grid>
+
+      <SpacecraftDialog open={openDialog} spacecraft={selectedSpacecraft} onClose={() => setOpenDialog(false)}/>
+
     </Grid>
   );
 };

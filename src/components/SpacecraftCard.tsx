@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import './SpacecraftCard.css';
 
 interface SpacecraftCardProps {
-  spacecraft: Vehicle | Starship
+  spacecraft: Vehicle | Starship,
+  onButtonClick?: () => void
 }
 
 /**
@@ -17,7 +18,7 @@ interface SpacecraftCardProps {
  * If the spacecraft is marked as favorite, it will display a star icon after the name.
  * The component also includes a button to learn more about the spacecraft.
  */
-const SpacecraftCard: React.FC<SpacecraftCardProps> = ({ spacecraft }) => {
+const SpacecraftCard: React.FC<SpacecraftCardProps> = ({ spacecraft, onButtonClick = () => {} }) => {
   return (
     <Card className={ spacecraft.favorite ? "spacecraft-card favorite" : "spacecraft-card" }>
       <CardContent className="card-content">
@@ -35,7 +36,7 @@ const SpacecraftCard: React.FC<SpacecraftCardProps> = ({ spacecraft }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" className="card-button">Learn More</Button>
+        <Button size="small" className="card-button" onClick={ onButtonClick }>Learn More</Button>
       </CardActions>
     </Card>
   )
